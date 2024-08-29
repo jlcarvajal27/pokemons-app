@@ -19,9 +19,8 @@ export const PokemonsCard = ({ pokemon }: Props) => {
             key={id}
             src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`}
             alt={name}
-            width={160}
-            height={160}
-            objectFit=""
+            width={190}
+            height={190}
           />
           <p className="pt-2 text-lg font-bold text-gray-50 capitalize">
             {name}

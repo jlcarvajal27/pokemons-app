@@ -42,12 +42,16 @@ export default function PokemonsPage() {
 
   return (
     <div className="flex flex-col">
-      <Navbar />
+      <Navbar showSearch />
       <Pagination
         onNextPage={handleNextPage}
         onPreviousPage={handlePreviousPage}
       />
       <PokemonsGrid pokemons={pokemons} />
+      <Pagination
+        onNextPage={handleNextPage}
+        onPreviousPage={handlePreviousPage}
+      />
     </div>
   );
 }
