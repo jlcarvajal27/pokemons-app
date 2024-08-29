@@ -7,7 +7,7 @@ interface Props {
 
 export const PokemonsGrid = ({ pokemons }: Props) => {
   return (
-    <div className="flex gap-10 items-center justify-center flex-wrap mt-6">
+    <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-5 gap-8 px-4">
       {pokemons.map((pokemon) => (
         <PokemonsCard key={pokemon.id} pokemon={pokemon} />
       ))}
