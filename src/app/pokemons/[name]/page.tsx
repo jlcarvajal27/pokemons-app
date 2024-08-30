@@ -28,18 +28,18 @@ export default async function PokemonPage({ params }: Props) {
     <>
       <div className="bg-second min-h-screen w-full px-2">
         <Navbar showSearch={false} />
-        <div className="flex flex-col md:flex-row mt-8 justify-center items-center">
-          <div className="flex flex-col md:flex-row items-center rounded-[20px] w-[90%] md:w-[600px] mx-auto bg-first bg-clip-border shadow-xl shadow-blue-500/50 p-3">
-            <div className="w-full md:w-1/2 flex flex-col justify-center items-center">
-              <Image
-                src={pokemon.sprites.other?.dream_world.front_default ?? ""}
-                width={150}
-                height={150}
-                alt={`Imagen del pokemon ${pokemon.name}`}
-                className="mb-5"
-              />
-
-              <div className="flex flex-col justify-center items-center rounded-2xl bg-clip-border px-3 py-4">
+        <div className="flex flex-col mt-8 items-center">
+          <div className="w-full md:w-[600px] mx-auto">
+            {/* codigo de  image Card */}
+            <div className="bg-first rounded-[20px] shadow-xl shadow-blue-500/50 p-4 mb-4">
+              <div className="flex flex-col items-center">
+                <Image
+                  src={pokemon.sprites.other?.dream_world.front_default ?? ""}
+                  width={150}
+                  height={150}
+                  alt={`Imagen del pokemon ${pokemon.name}`}
+                  className="mb-5"
+                />
                 <div className="flex justify-center space-x-4">
                   <Image
                     src={pokemon.sprites.front_default}
@@ -54,48 +54,91 @@ export default async function PokemonPage({ params }: Props) {
                     alt={`sprite ${pokemon.name}`}
                   />
                 </div>
+                <h1 className="text-lg md:text-xl font-bold text-white capitalize mt-4">
+                  #{pokemon.id} {pokemon.name}
+                </h1>
               </div>
             </div>
 
-            <div className="w-full md:w-1/2 flex flex-col space-y-4 mt-4 md:mt-0">
-              <h1 className="text-lg md:text-xl font-bold text-white capitalize">
-                #{pokemon.id} {pokemon.name}
-              </h1>
-              <div className="rounded-2xl bg-[#acc2ef] bg-clip-border px-3 py-4">
-                <p className="text-sm md:text-md font-semibold text-second">
-                  Abilities
-                </p>
-                <div className="flex flex-wrap">
-                  {pokemon.abilities.map((ability: any) => (
-                    <p
-                      key={ability.name}
-                      className="mr-2 capitalize text-sm md:text-base"
-                    >
-                      {ability.ability.name}
-                    </p>
+            {/* codigo de abilities Card */}
+            <div className="bg-[#acc2ef] rounded-[20px] p-4 mb-4">
+              <h2 className="text-sm md:text-md font-semibold text-second mb-2">
+                Abilities
+              </h2>
+              <div className="flex flex-wrap">
+                {pokemon.abilities.map((ability) => (
+                  <p
+                    key={ability.ability.name}
+                    className="mr-2 capitalize text-sm md:text-base"
+                  >
+                    {ability.ability.name}
+                  </p>
+                ))}
+              </div>
+            </div>
+
+            {/* codigo de types card */}
+            <div className="bg-[#acc2ef] rounded-[20px] p-4 mb-4">
+              <h2 className="text-sm md:text-md font-semibold text-second mb-2">
+                Types
+              </h2>
+              <div className="flex">
+                {pokemon.types.map((type) => (
+                  <p
+                    key={type.slot}
+                    className="mr-2 capitalize text-sm md:text-base"
+                  >
+                    {type.type.name}
+                  </p>
+                ))}
+              </div>
+            </div>
+
+            {/* codigo de  weight card */}
+            <div className="bg-[#acc2ef] rounded-[20px] p-4 mb-4">
+              <h2 className="text-sm md:text-md font-semibold text-second mb-2">
+                Peso
+              </h2>
+              <span className="text-sm md:text-base font-medium text-gray-600">
+                {pokemon.weight} Kg
+              </span>
+            </div>
+
+            {/* codigo de  stats card */}
+            <div className="bg-[#acc2ef] rounded-[20px] p-4 mb-4">
+              <h2 className="text-sm md:text-md font-semibold text-second mb-2">
+                Stats
+              </h2>
+              <table className="min-w-full">
+                <thead className="bg-three">
+                  <tr>
+                    <th className="px-4 py-2 text-left text-xs font-medium text-second uppercase tracking-wider">
+                      Statistics
+                    </th>
+                    <th className="px-4 py-2 text-left text-xs font-medium text-second uppercase tracking-wider">
+                      Base value
+                    </th>
+                    <th className="px-4 py-2 text-left text-xs font-medium text-second uppercase tracking-wider">
+                      Effort
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {pokemon.stats.map((stat, index) => (
+                    <tr key={index}>
+                      <td className="px-4 py-2 whitespace-nowrap text-sm font-medium text-second">
+                        {stat.stat.name}
+                      </td>
+                      <td className="px-4 py-2 whitespace-nowrap text-sm text-second">
+                        {stat.base_stat}
+                      </td>
+                      <td className="px-4 py-2 whitespace-nowrap text-sm text-second">
+                        {stat.effort}
+                      </td>
+                    </tr>
                   ))}
-                </div>
-              </div>
-              <div className="rounded-2xl bg-[#acc2ef] bg-clip-border px-3 py-4 drop-shadow-lg">
-                <p className="text-sm md:text-md font-semibold text-second">
-                  Types
-                </p>
-                <div className="text-sm md:text-base font-medium text-gray-600 flex">
-                  {pokemon.types.map((type) => (
-                    <p key={type.slot} className="mr-2 capitalize">
-                      {type.type.name}
-                    </p>
-                  ))}
-                </div>
-              </div>
-              <div className="rounded-2xl bg-[#acc2ef] bg-clip-border px-3 py-4 drop-shadow-lg">
-                <p className="text-sm md:text-md font-semibold text-second">
-                  Peso
-                </p>
-                <span className="text-sm md:text-base font-medium text-gray-600 flex">
-                  {pokemon.weight}- Kg
-                </span>
-              </div>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
