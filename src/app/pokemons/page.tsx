@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useMemo } from "react";
 import Navbar from "../components/Navbar";
 import Pagination from "../components/Pagination";
-import { PokemonsGrid } from "../components/PokemonsGrid";
+import { PokemonsGrid } from "./components/PokemonsGrid";
 import { useFetchPokemons } from "../hooks/queries/useFetchPokemons";
 
 export default function PokemonsPage() {

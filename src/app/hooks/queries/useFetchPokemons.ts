@@ -7,7 +7,7 @@ interface Props {
   limit?: number;
 }
 
-export const useFetchPokemons = ({ currentPage, limit = 20 }: Props) => {
+export const useFetchPokemons = ({ currentPage, limit = 40 }: Props) => {
   const [pokemons, setPokemons] = useState<SimplePokemon[]>([]);
 
   useEffect(() => {

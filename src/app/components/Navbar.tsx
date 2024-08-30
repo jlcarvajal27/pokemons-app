@@ -17,7 +17,7 @@ export default function Navbar({
   return (
     <nav className="bg-three border-gray-200 p-4">
       <div className="flex flex-col sm:flex-row justify-between items-center mx-auto">
-        <span className="sm: hidden md:block self-center text-2xl font-semibold whitespace-nowrap text-white cursor-pointer mb-4 sm:mb-0">
+        <span className="self-center text-2xl font-semibold whitespace-nowrap text-white cursor-pointer mb-4 sm:mb-0">
           <Link href="/">Pokemons</Link>
         </span>
         {showSearch && (
