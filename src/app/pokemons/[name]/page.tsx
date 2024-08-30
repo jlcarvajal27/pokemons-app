@@ -26,23 +26,42 @@ export default async function PokemonPage({ params }: Props) {
 
   return (
     <>
-      <Navbar showSearch={false} />
-      <div className="flex mt-5 flex-col items-center text-slate-800">
-        <div className="relative flex flex-col items-center rounded-[20px] w-[700px] mx-auto bg-gray-500 bg-clip-border  shadow-lg  p-3">
-          <div className="mt-2 mb-8 w-full">
-            <h1 className="px-2 text-xl font-bold text-slate-9  00 capitalize">
-              #{pokemon.id} {pokemon.name}
-            </h1>
-            <div className="flex flex-col justify-center items-center">
+      <div className="bg-second min-h-screen w-full">
+        <Navbar showSearch={false} />
+        <div className="flex mt-8 justify-center items-center ">
+          <div className="flex items-center rounded-[20px] w-[600px] mx-auto bg-first bg-clip-border  shadow-xl shadow-blue-500/50 p-3">
+            <div className="w-1/2 flex flex-col justify-center items-center">
               <Image
                 src={pokemon.sprites.other?.dream_world.front_default ?? ""}
-                width={150}
-                height={150}
+                width={200}
+                height={200}
                 alt={`Imagen del pokemon ${pokemon.name}`}
                 className="mb-5"
               />
-              <div className="rounded-2xl bg-white bg-clip-border px-3 py-4  drop-shadow-lg">
-                <p className="text-sm text-gray-600">Ability</p>
+
+              <div className="flex flex-col justify-center items-center rounded-2xl bg-clip-border px-3 py-4">
+                <div className="flex justify-center">
+                  <Image
+                    src={pokemon.sprites.front_default}
+                    width={160}
+                    height={160}
+                    alt={`sprite ${pokemon.name}`}
+                  />
+                  <Image
+                    src={pokemon.sprites.back_default}
+                    width={160}
+                    height={160}
+                    alt={`sprite ${pokemon.name}`}
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="w-1/2 flex flex-col space-y-4">
+              <h1 className="text-xl font-bold text-white capitalize">
+                #{pokemon.id} {pokemon.name}
+              </h1>
+              <div className="rounded-2xl bg-[#acc2ef] bg-clip-border px-3 py-4">
+                <p className="text-md font-semibold text-second">Ability</p>
                 <div className="flex flex-wrap">
                   {pokemon.abilities.map((ability: any) => (
                     <p key={ability.name} className="mr-2 capitalize">
@@ -51,25 +70,22 @@ export default async function PokemonPage({ params }: Props) {
                   ))}
                 </div>
               </div>
-            </div>
-          </div>
-          <div className="grid grid-cols-2 gap-4 px-2 w-full">
-            <div className="flex flex-col items-start justify-center rounded-2xl bg-white bg-clip-border px-3 py-4  drop-shadow-lg ">
-              <p className="text-sm text-gray-600">Types</p>
-              <div className="text-base font-medium text-navy-700 flex">
-                {pokemon.types.map((type: any) => (
-                  <p key={type.slot} className="mr-2 capitalize">
-                    {type.type.name}
-                  </p>
-                ))}
+              <div className="rounded-2xl bg-[#acc2ef] bg-clip-border px-3 py-4 drop-shadow-lg">
+                <p className="text-md font-semibold text-second">Types</p>
+                <div className="text-base font-medium text-gray-600 flex">
+                  {pokemon.types.map((type) => (
+                    <p key={type.slot} className="mr-2 capitalize">
+                      {type.type.name}
+                    </p>
+                  ))}
+                </div>
               </div>
-            </div>
-
-            <div className="flex flex-col items-start justify-center rounded-2xl bg-white bg-clip-border px-3 py-4  drop-shadow-lg ">
-              <p className="text-sm text-gray-600">Peso</p>
-              <span className="text-base font-medium text-navy-700 flex">
-                {pokemon.weight}- Kg
-              </span>
+              <div className="rounded-2xl bg-[#acc2ef] bg-clip-border px-3 py-4 drop-shadow-lg">
+                <p className="text-md font-semibold text-second">Peso</p>
+                <span className="text-base font-medium text-gray-600 flex">
+                  {pokemon.weight}- Kg
+                </span>
+              </div>
             </div>
           </div>
         </div>

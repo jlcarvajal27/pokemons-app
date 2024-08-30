@@ -12,16 +12,18 @@ export const PokemonsCard = ({ pokemon }: Props) => {
   const { name, id } = pokemon;
 
   return (
-    <div className="transition ease-in-out delay-150 hover:scale-110 duration-300 ">
-      <div className="bg-white rounded-xl overflow-hidden shadow-lg  ">
-        <div className=" flex flex-col items-center justify-center text-center p-6 bg-gray-700 border-b ">
-          <Image
-            key={id}
-            src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`}
-            alt={name}
-            width={190}
-            height={190}
-          />
+    <div className="transition ease-in-out delay-150 hover:scale-110 duration-300">
+      <div className="rounded-xl overflow-hidden shadow-lg">
+        <div className="flex flex-col items-center justify-center text-center p-6 bg-first border-b">
+          <div className="w-[190px] h-[190px] relative">
+            <Image
+              key={id}
+              src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${id}.svg`}
+              alt={name}
+              layout="fill"
+              objectFit="contain"
+            />
+          </div>
           <p className="pt-2 text-lg font-bold text-gray-50 capitalize">
             {name}
           </p>
@@ -34,9 +36,6 @@ export const PokemonsCard = ({ pokemon }: Props) => {
               Mas Detalles..
             </Link>
           </div>
-        </div>
-        <div className="border-b">
-          <div className="px-4 py-4 hover:bg-gray-100 flex items-center cursor-pointer"></div>
         </div>
       </div>
     </div>

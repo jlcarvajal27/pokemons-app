@@ -5,13 +5,19 @@ import React from "react";
 
 interface NavbarProps {
   showSearch: boolean;
+  searchValue?: string;
+  onChangeSearchValue?: (value: string) => void;
 }
 
-export default function Navbar({ showSearch }: NavbarProps) {
+export default function Navbar({
+  showSearch,
+  searchValue,
+  onChangeSearchValue,
+}: NavbarProps) {
   return (
-    <nav className="bg-blue-400 border-gray-200 p-4">
+    <nav className="bg-three border-gray-200 p-4">
       <div className="flex flex-col sm:flex-row justify-between items-center mx-auto">
-        <span className="sm: hidden md:block self-center text-2xl font-semibold whitespace-nowrap text-black cursor-pointer mb-4 sm:mb-0">
+        <span className="sm: hidden md:block self-center text-2xl font-semibold whitespace-nowrap text-white cursor-pointer mb-4 sm:mb-0">
           <Link href="/">Pokemons</Link>
         </span>
         {showSearch && (
@@ -34,8 +40,10 @@ export default function Navbar({ showSearch }: NavbarProps) {
               </svg>
             </div>
             <input
+              value={searchValue}
               type="text"
               id="search-navbar"
+              onChange={({ target }) => onChangeSearchValue?.(target.value)}
               className="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Search..."
             />

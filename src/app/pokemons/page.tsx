@@ -1,34 +1,23 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import Navbar from "../components/Navbar";
 import Pagination from "../components/Pagination";
 import { PokemonsGrid } from "../components/PokemonsGrid";
-import { PokemonsResponse } from "../interfaces/pokemon-response";
-import { SimplePokemon } from "../interfaces/simple-pokemon";
+import { useFetchPokemons } from "../hooks/queries/useFetchPokemons";
 
 export default function PokemonsPage() {
-  const [pokemons, setPokemons] = useState<SimplePokemon[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const pokemonsPage = 20;
+  const [searchValue, setSearchValue] = useState("");
 
-  useEffect(() => {
-    const fetchPokemons = async () => {
-      const offset = (currentPage - 1) * pokemonsPage;
-      const response = await fetch(
-        `https://pokeapi.co/api/v2/pokemon?limit=${pokemonsPage}&offset=${offset}`
-      );
-      const data: PokemonsResponse = await response.json();
+  const { pokemons } = useFetchPokemons({ currentPage });
 
-      const fetchedPokemons = data.results.map((pokemon) => ({
-        id: pokemon.url.split("/").at(-2)!,
-        name: pokemon.name,
-      }));
-
-      setPokemons(fetchedPokemons);
-    };
-
-    fetchPokemons();
-  }, [currentPage]);
+  const filteredPokemons = useMemo(() => {
+    return pokemons.filter((pokemon) => {
+      const normalizeName = pokemon.name.toLowerCase();
+      const normalizeSearchValue = searchValue.toLowerCase().trim();
+      return normalizeName.includes(normalizeSearchValue);
+    });
+  }, [searchValue, pokemons]);
 
   const handleNextPage = () => {
     setCurrentPage((prevPage) => prevPage + 1);
@@ -39,15 +28,18 @@ export default function PokemonsPage() {
       setCurrentPage((prevPage) => prevPage - 1);
     }
   };
-
   return (
-    <div className="flex flex-col">
-      <Navbar showSearch />
+    <div className="flex flex-col bg-second">
+      <Navbar
+        showSearch
+        searchValue={searchValue}
+        onChangeSearchValue={setSearchValue}
+      />
       <Pagination
         onNextPage={handleNextPage}
         onPreviousPage={handlePreviousPage}
       />
-      <PokemonsGrid pokemons={pokemons} />
+      <PokemonsGrid pokemons={filteredPokemons} />
       <Pagination
         onNextPage={handleNextPage}
         onPreviousPage={handlePreviousPage}
