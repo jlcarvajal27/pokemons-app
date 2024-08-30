@@ -7,12 +7,21 @@ import { useGetPokemons } from "../hooks/useGetPokemons";
 
 export default function PokemonsPage() {
   const {
-    handleNextPage,
-    handlePreviousPage,
     pokemons,
     searchValue,
+    currentPage,
+    handleNextPage,
+    handlePreviousPage,
     setSearchValue,
   } = useGetPokemons();
+
+  const paginationElement = (
+    <Pagination
+      onNextPage={handleNextPage}
+      onPreviousPage={handlePreviousPage}
+      currentPage={currentPage}
+    />
+  );
   return (
     <div className="flex flex-col bg-second">
       <Navbar
@@ -20,15 +29,9 @@ export default function PokemonsPage() {
         searchValue={searchValue}
         onChangeSearchValue={setSearchValue}
       />
-      <Pagination
-        onNextPage={handleNextPage}
-        onPreviousPage={handlePreviousPage}
-      />
+      {paginationElement}
       <PokemonsGrid pokemons={pokemons} />
-      <Pagination
-        onNextPage={handleNextPage}
-        onPreviousPage={handlePreviousPage}
-      />
+      {paginationElement}
     </div>
   );
 }

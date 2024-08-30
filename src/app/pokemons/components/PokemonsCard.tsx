@@ -14,7 +14,7 @@ export const PokemonsCard = ({ pokemon }: Props) => {
   return (
     <div className="transition ease-in-out delay-150 hover:scale-110 duration-300">
       <div className="rounded-xl overflow-hidden shadow-lg">
-        <div className="flex flex-col items-center justify-center text-center p-6 bg-first border-b">
+        <div className="flex flex-col items-center justify-center text-center p-6 bg-first">
           <div className="w-[190px] h-[190px] relative">
             <Image
               key={id}

@@ -3,14 +3,16 @@ import React from "react";
 interface PaginationProps {
   onNextPage: () => void;
   onPreviousPage: () => void;
+  currentPage: number;
 }
 
 export default function Pagination({
   onNextPage,
   onPreviousPage,
+  currentPage,
 }: PaginationProps) {
   return (
-    <div className="flex justify-between items-center gap-4 m-4">
+    <div className="flex justify-center items-center gap-4 m-4">
       <button
         onClick={onPreviousPage}
         className="flex items-center gap-2 px-6 py-3 font-sans text-xs font-bold text-center text-white uppercase align-middle  rounded-lg  disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
@@ -33,7 +35,7 @@ export default function Pagination({
         </svg>
         Previous
       </button>
-
+      <span className="text-white">{currentPage}</span>
       <button
         onClick={onNextPage}
         className="flex items-center gap-2 px-6 py-3 font-sans text-xs font-bold text-center text-white uppercase align-middle transition-all rounded-lg select-none hover:bg-gray-900/10 active:bg-gray-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"

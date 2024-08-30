@@ -1,16 +1,18 @@
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect, useCallback } from "react";
 import { useFetchPokemons } from "./queries/useFetchPokemons";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useDebounce } from "./useDebounce";
 
 const SEARCH_KEY = "search";
+const PAGE_KEY = "page";
 
 export const useGetPokemons = () => {
   const router = useRouter();
-  const pathName = usePathname();
   const searchParams = useSearchParams();
 
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(
+    Number(searchParams.get(PAGE_KEY) ?? 1)
+  );
   const [searchValue, setSearchValue] = useState(
     searchParams.get(SEARCH_KEY) ?? ""
   );
@@ -35,14 +37,22 @@ export const useGetPokemons = () => {
     }
   };
 
+  const setQueryParams = useCallback((key: string, value: string) => {
+    const params = new URLSearchParams(searchParams);
+    params.set(key, value);
+    const newUrl = `${window.location.pathname}?${params.toString()}`;
+    router.replace(newUrl);
+  }, []);
+
   useEffect(() => {
     if (debounceSearchValue) {
-      const params = new URLSearchParams(searchParams);
-      params.set(SEARCH_KEY, debounceSearchValue);
-      const newUrl = `${window.location.pathname}?${params.toString()}`;
-      router.replace(newUrl);
+      setQueryParams(SEARCH_KEY, debounceSearchValue);
     }
-  }, [debounceSearchValue]);
+  }, [debounceSearchValue, setQueryParams]);
+
+  useEffect(() => {
+    setQueryParams(PAGE_KEY, String(currentPage));
+  }, [currentPage, setQueryParams]);
 
   return {
     searchValue,
@@ -50,5 +60,6 @@ export const useGetPokemons = () => {
     pokemons: filteredPokemons,
     handleNextPage,
     handlePreviousPage,
+    currentPage,
   };
 };
