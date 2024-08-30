@@ -1,11 +1,13 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { useFetchPokemons } from "./queries/useFetchPokemons";
-import { useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useDebounce } from "./useDebounce";
 
 const SEARCH_KEY = "search";
 
 export const useGetPokemons = () => {
+  const router = useRouter();
+  const pathName = usePathname();
   const searchParams = useSearchParams();
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -32,6 +34,15 @@ export const useGetPokemons = () => {
       setCurrentPage((prevPage) => prevPage - 1);
     }
   };
+
+  useEffect(() => {
+    if (debounceSearchValue) {
+      const params = new URLSearchParams(searchParams);
+      params.set(SEARCH_KEY, debounceSearchValue);
+      const newUrl = `${window.location.pathname}?${params.toString()}`;
+      router.replace(newUrl);
+    }
+  }, [debounceSearchValue]);
 
   return {
     searchValue,

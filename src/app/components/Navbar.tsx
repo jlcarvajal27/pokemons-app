@@ -18,7 +18,7 @@ export default function Navbar({
     <nav className="bg-three border-gray-200 p-4">
       <div className="flex flex-col sm:flex-row justify-between items-center mx-auto">
         <span className="self-center text-2xl font-semibold whitespace-nowrap text-white cursor-pointer mb-4 sm:mb-0">
-          <Link href="/">Pokemons</Link>
+          <Link href="/pokemons">Pokemons</Link>
         </span>
         {showSearch && (
           <div className="relative w-full sm:w-auto">
