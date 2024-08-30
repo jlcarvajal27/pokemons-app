@@ -1,25 +1,10 @@
 import Navbar from "@/app/components/Navbar";
-import { Pokemon } from "@/app/interfaces/pokemon";
 import Image from "next/image";
-import { notFound } from "next/navigation";
+import { getPokemon } from "../services/getPokemon";
 
 interface Props {
   params: { name: string };
 }
-
-const getPokemon = async (name: string): Promise<Pokemon> => {
-  try {
-    const pokemon = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`, {
-      next: {
-        revalidate: 60 * 60 * 30 * 6,
-      },
-    }).then((res) => res.json());
-
-    return pokemon;
-  } catch (error) {
-    notFound();
-  }
-};
 
 export default async function PokemonPage({ params }: Props) {
   const pokemon = await getPokemon(params.name);
